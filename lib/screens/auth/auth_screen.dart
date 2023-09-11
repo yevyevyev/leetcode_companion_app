@@ -48,19 +48,30 @@ class _AuthScreenState extends State<AuthScreen> {
           if (url == null) {
             return;
           }
-          final cookie = CookieManager.instance();
-          final session = await cookie.getCookie(url: url, name: 'LEETCODE_SESSION');
-          final csrfToken = await cookie.getCookie(url: url, name: 'csrftoken');
-
-          if (session != null && csrfToken != null) {
-            // ignore: use_build_context_synchronously
-            context.read<AuthCubit>().signIn(AuthTokens(
-                  sessionToken: session.value,
-                  csrfToken: csrfToken.value,
-                ));
-          }
+          parseCookies(context, url);
         },
       ),
     );
+  }
+
+  void parseCookies(BuildContext context, WebUri url) async {
+    final cookie = CookieManager.instance();
+    final session = await cookie.getCookie(url: url, name: 'LEETCODE_SESSION');
+    final csrfToken = await cookie.getCookie(url: url, name: 'csrftoken');
+
+    if (session != null && csrfToken != null) {
+      final username = ((await cookie.getCookie(url: url, name: 'messages'))!.value as String)
+          .split('Successfully signed in as')
+          .last
+          .split('.')
+          .first
+          .trim();
+      // ignore: use_build_context_synchronously
+      context.read<AuthCubit>().signIn(AuthTokens(
+            sessionToken: session.value,
+            csrfToken: csrfToken.value,
+            username: username,
+          ));
+    }
   }
 }

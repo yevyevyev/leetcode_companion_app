@@ -22,6 +22,7 @@ AuthTokens _$AuthTokensFromJson(Map<String, dynamic> json) {
 mixin _$AuthTokens {
   String get sessionToken => throw _privateConstructorUsedError;
   String get csrfToken => throw _privateConstructorUsedError;
+  String get username => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -35,7 +36,7 @@ abstract class $AuthTokensCopyWith<$Res> {
           AuthTokens value, $Res Function(AuthTokens) then) =
       _$AuthTokensCopyWithImpl<$Res, AuthTokens>;
   @useResult
-  $Res call({String sessionToken, String csrfToken});
+  $Res call({String sessionToken, String csrfToken, String username});
 }
 
 /// @nodoc
@@ -53,6 +54,7 @@ class _$AuthTokensCopyWithImpl<$Res, $Val extends AuthTokens>
   $Res call({
     Object? sessionToken = null,
     Object? csrfToken = null,
+    Object? username = null,
   }) {
     return _then(_value.copyWith(
       sessionToken: null == sessionToken
@@ -62,6 +64,10 @@ class _$AuthTokensCopyWithImpl<$Res, $Val extends AuthTokens>
       csrfToken: null == csrfToken
           ? _value.csrfToken
           : csrfToken // ignore: cast_nullable_to_non_nullable
+              as String,
+      username: null == username
+          ? _value.username
+          : username // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
   }
@@ -75,7 +81,7 @@ abstract class _$$_AuthTokensCopyWith<$Res>
       __$$_AuthTokensCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String sessionToken, String csrfToken});
+  $Res call({String sessionToken, String csrfToken, String username});
 }
 
 /// @nodoc
@@ -91,6 +97,7 @@ class __$$_AuthTokensCopyWithImpl<$Res>
   $Res call({
     Object? sessionToken = null,
     Object? csrfToken = null,
+    Object? username = null,
   }) {
     return _then(_$_AuthTokens(
       sessionToken: null == sessionToken
@@ -101,6 +108,10 @@ class __$$_AuthTokensCopyWithImpl<$Res>
           ? _value.csrfToken
           : csrfToken // ignore: cast_nullable_to_non_nullable
               as String,
+      username: null == username
+          ? _value.username
+          : username // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -108,7 +119,10 @@ class __$$_AuthTokensCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_AuthTokens implements _AuthTokens {
-  const _$_AuthTokens({required this.sessionToken, required this.csrfToken});
+  const _$_AuthTokens(
+      {required this.sessionToken,
+      required this.csrfToken,
+      required this.username});
 
   factory _$_AuthTokens.fromJson(Map<String, dynamic> json) =>
       _$$_AuthTokensFromJson(json);
@@ -117,10 +131,12 @@ class _$_AuthTokens implements _AuthTokens {
   final String sessionToken;
   @override
   final String csrfToken;
+  @override
+  final String username;
 
   @override
   String toString() {
-    return 'AuthTokens(sessionToken: $sessionToken, csrfToken: $csrfToken)';
+    return 'AuthTokens(sessionToken: $sessionToken, csrfToken: $csrfToken, username: $username)';
   }
 
   @override
@@ -131,12 +147,15 @@ class _$_AuthTokens implements _AuthTokens {
             (identical(other.sessionToken, sessionToken) ||
                 other.sessionToken == sessionToken) &&
             (identical(other.csrfToken, csrfToken) ||
-                other.csrfToken == csrfToken));
+                other.csrfToken == csrfToken) &&
+            (identical(other.username, username) ||
+                other.username == username));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, sessionToken, csrfToken);
+  int get hashCode =>
+      Object.hash(runtimeType, sessionToken, csrfToken, username);
 
   @JsonKey(ignore: true)
   @override
@@ -155,7 +174,8 @@ class _$_AuthTokens implements _AuthTokens {
 abstract class _AuthTokens implements AuthTokens {
   const factory _AuthTokens(
       {required final String sessionToken,
-      required final String csrfToken}) = _$_AuthTokens;
+      required final String csrfToken,
+      required final String username}) = _$_AuthTokens;
 
   factory _AuthTokens.fromJson(Map<String, dynamic> json) =
       _$_AuthTokens.fromJson;
@@ -164,6 +184,8 @@ abstract class _AuthTokens implements AuthTokens {
   String get sessionToken;
   @override
   String get csrfToken;
+  @override
+  String get username;
   @override
   @JsonKey(ignore: true)
   _$$_AuthTokensCopyWith<_$_AuthTokens> get copyWith =>
